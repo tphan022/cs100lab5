@@ -1,4 +1,4 @@
-#ifndef __NEMU_CLASS__
+#ifndef __MENU_CLASS__
 #define __MENU_CLASS__
 
 #include <iostream>
@@ -13,14 +13,13 @@ class Menu {
 
 	public:
 		Menu() {
-			history_index = 0;
 		};
 		void execute() {
-			if(history_index == 0) {
+			if(history.size()  == 0) {
 				cout << '0' << endl;
 			}
 			else {
-				history.at(history_index - 1).execute();
+				cout << history.at(history_index)->execute() << endl;
 			}
 			
 
@@ -28,7 +27,7 @@ class Menu {
 			//print 0 by default
 		};
 		bool initialized() {
-			if(history_index == 0) {
+			if(history.size() == 0) {
 				return false;
 			}
 			return true;
@@ -36,18 +35,22 @@ class Menu {
 			//This is necessary because that is the base of a calculation
 		};
 		void add_command(Command* cmd) {
-			if(history.size() == history_index) {
+			if(history_index  == (unsigned int)(history.size() - 1)) {
 				history.push_back(cmd);
-				history_index++;
 			}
-			else if(history.size() > history_index) {
-				history.at(history_index) = cmd;
+			else{
+				for(unsigned int i = history_index; i < history.size(); i++) {
+					history.pop_back();
+				}
+				history.push_back(cmd);
+			}
+			if(history.size() > 1) {
 				history_index++;
 			}
 			//Adds a command to history in the appropriate posiiton (based on history_index)
 		};
 		Command* get_command() {
-			return history.at(history_index - 1; 
+			return history.at(history_index); 
 			//Returns the command in history we are currently referring to (based on history_index)
 		};
 		void undo() {
@@ -57,10 +60,12 @@ class Menu {
 			//Moves to the last command in history (if possible)
 		};
 		void redo() {
-			if(history_index < history.size() ) {
+			if(history_index < history.size() - 1) {
 				history_index++;
 			//Moves to the next command in history (if possible)
 		};
+};
+
 };
 
 #endif //__MENU_CLASS__

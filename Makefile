@@ -1,11 +1,11 @@
 CC = g++
-CC_FLAGS = -std=c++0x -Wall -ansi
+CC_FLAGS =  -Wall -ansi -std=c++0x
 EXEC = calculator
 SOURCES = $(wildcard *.cpp)
-OBJECTS = calculator.cpp
+OBJECTS = $(SOURCES:.cpp=.o)
 
 $(EXEC): $(OBJECTS)
-	$(CC) $(OBJECTS) $(CC_FLAGS) -o $(EXEC)
+	$(CC) $(OBJECTS) -o $(EXEC)
 
 %.o: %.cpp
 	$(CC) -c $(CC_FLAGS) $< -o $@

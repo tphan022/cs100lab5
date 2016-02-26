@@ -1,10 +1,9 @@
 #include <iostream>
 #include <vector>
-#include <stdlib.h>
-#include <string>
 #include "composite.h"
 #include "menu.h"
 #include "command.h"
+//jeddcce
 
 using namespace std;
 
@@ -90,6 +89,5 @@ int main() {
 			cout << "Invalid Command" << endl;
 		}
 	}
-return 0;
-}
+};
 
